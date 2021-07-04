@@ -35,14 +35,11 @@ function App() {
       <BrowserRouter>
         <Header gameStarted={message} setGameStarted={setMessage} token={token} setToken={setToken}/>
         <Switch>
-            <Route path='/gameboard' exact render={(props) => (
+            <Route path='/' exact render={(props) => (
               <Board token={token} />
             )} />
             <Route path='/addMove' exact render={(props) => (
               <AddMove token={token} />
-            )} />
-            <Route path='/' exact render={(props) => (
-              <Summary token={token} />
             )} />
         </Switch>
       </BrowserRouter>

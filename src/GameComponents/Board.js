@@ -1,13 +1,45 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState } from "react";
+import Summary from "./Summary";
+import 'bootstrap/dist/css/bootstrap.min.css';
+import {Check, X, Question } from 'react-bootstrap-icons';
 
 export default function Board (props) {
     
     const [players, setPlayers] = useState([]);
+    const [tablePrep, setTablePrep] = useState([]);
+    const [showDetails, setShowDetails] = useState(false);
 
     useEffect(()=>{
         fetchItems();
-    },[])
+        handleTablePrep();
+    },[players])
 
+
+
+    const handleTablePrep = () => {
+        console.log('handeTablePrep')
+        let array = [];
+        if (players.length > 0){
+            for (let i = 0; i<21; i++){
+                let smallArray = [];
+                
+                players.map((value, index) => {
+                    smallArray.push (
+                            <td>{value[2][i][1]}</td>
+                    )
+                })
+                array.push (
+                    <tr>
+                        {smallArray.map ((arrayItem) => {
+                            return arrayItem;
+                        })}
+                    </tr>
+                )
+                    }
+            setTablePrep(array);
+        }
+
+    }
 
 
     const fetchItems = async () => {
@@ -108,11 +140,11 @@ export default function Board (props) {
             for (let i = 0; i<item.tracking_array.length; i++){
                 console.log()
                 if (item.tracking_array[i] == 0){
-                    clueBreakdown[i][1] = 'UNKNOWN';
+                    clueBreakdown[i][1] = <Question color="lightgrey"/>;
                 } else if (item.tracking_array[i] === 1){
-                    clueBreakdown[i][1] = 'YES'
+                    clueBreakdown[i][1] = <Check font-weight="bold" color="darkgreen"/>
                 } else {
-                    clueBreakdown[i][1] = 'NO'
+                    clueBreakdown[i][1] = <X font-weight="bold" color="red"/>
                 }
             }
             console.log(item.tracking_array)
@@ -122,20 +154,43 @@ export default function Board (props) {
         })
         setPlayers(playerInfos);
     }
+
+    const toggleShowDetails = () => {
+        if (showDetails===true) {
+            setShowDetails(false)
+        } else {
+            setShowDetails(true);
+        }
+    }
     
-    return (
-        <div className="d-flex flex-row">
-            {players.map((value, index) => {
-                return (
-                    <div  key={index}>
-                        <p>id: {value[0]}</p>
-                        <p>name: {value[1]}</p>
-                        <div>tracking array: {value[2].map((obj, index) => {
-                            return <p>{obj[0]} - {obj[1]}</p>
-                        })}</div>
-                    </div>
-                )
-            })}
-        </div>
-    )
+    if (showDetails){
+        return (
+            <div className="d-flex flex-row">
+                <Summary token={props.token}/> 
+                <table className="table table-bordered">
+                    <thead className="thead-dark">
+                        <tr>
+                            {players.map((value, index) => {
+                                return (
+                                    <th scope="col">{value[1]}</th>
+                                )
+                            })}
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {tablePrep}
+                    </tbody>
+                </table>
+                <button onClick={toggleShowDetails}>Hide Details</button>
+            </div>
+        )
+    } else {
+        return (
+            <div className="d-flex flex-row">
+                <Summary token={props.token}/> 
+                <button onClick={toggleShowDetails}>Show Details</button>
+            </div>
+        )
+    }
+
 }

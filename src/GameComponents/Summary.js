@@ -1,12 +1,13 @@
 import { useState, useEffect } from "react";
 
+
 export default function Summary (props) {
     
     const [summary, setSummary] = useState([]);
 
     useEffect(()=>{
         fetchItems();
-    },[])
+    },[summary])
 
     const fetchItems = async () => {
         const data = await fetch ('https://smart-clue-backend.herokuapp.com/boardSummary', {
@@ -114,10 +115,27 @@ export default function Summary (props) {
     }
 
     return (
-        <div>
-            {summary.map((obj, index) => {
-                return <p key={71+ index}>{obj[0]} | {obj[1]}</p>
-            })}
+        <div className="border-end border-5">
+        <table className="table table-bordered">
+            <thead>
+                <tr>
+                    <th scope="col">Card</th>
+                    <th scope="col">Known?</th>
+                </tr>
+            </thead>
+            <tbody>
+                {summary.map((obj, index) => {
+                    return (
+                        <tr key={71+ index}> 
+                            <th scope="row" >{obj[0]}</th>
+                            <td>{obj[1]}</td>
+                        </tr>
+                    )
+                })}
+            </tbody>
+        </table>
         </div>
+        
+
     )
 }

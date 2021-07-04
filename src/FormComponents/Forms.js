@@ -1,6 +1,5 @@
 import OpponentForm from './OpponentForm';
 import UserForm from './UserForm';
-import FormHeader from './FormHeader';
 import {BrowserRouter, Switch, Route } from "react-router-dom";
 import PlayerList from "./PlayerList"
 import { useState } from 'react';

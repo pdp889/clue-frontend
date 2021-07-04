@@ -195,18 +195,18 @@ export default function AddMove (props) {
     if (showCards){
        return(
            <div>
-               <h2>Add the cards asked about</h2>
-               <p>{message}</p>
+               <h2>What was the suggestion made?</h2>
                <ClueForm arrayFromForm={clueFormResultHandler} />
            </div>
             
        ) 
     } else {
         return (
-            <div>
-                <h2>Add the cards asked about</h2>
-                <p>{message}</p>
-                <button onClick={toggleShowCards}>Change cards</button>
+            <div className="w-50">
+                <div className="d-flex justify-content-between">
+                    <h2>Suggestion Details</h2>
+                    <button className="btn btn-outline-link" onClick={toggleShowCards}>Change cards?</button>
+                </div>
                 <form onSubmit ={e => {onSubmitTask(e)}}>
                     <label htmlFor='player'>Player</label>
                     <select name="player" value={player} className="form-select" onChange={onSelectChange}>

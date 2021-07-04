@@ -35,18 +35,19 @@ export default function Header (props) {
 
     if (props.gameStarted){
         return(
-            <div>
-                <Link to='/gameboard'>
-                    <button>Game Details</button>
-                </Link>
-                <Link to='/addMove'>
-                    <button>add move</button>
-                </Link>
-                <Link to="/">
-                    <button>summary</button>
-                </Link>
-                <button onClick={endGame}>End Game</button>
-                <button className="text-white btn btn-primary" onClick={logOut}>Log Out</button>
+            <div className="d-flex justify-content-between">
+                <div>
+                    <Link to='/addMove'>
+                        <button>Add Move</button>
+                    </Link>
+                    <Link to="/">
+                        <button>Game Board</button>
+                    </Link>
+                </div>
+                <div>
+                    <button onClick={endGame}>End Game</button>
+                    <button className="text-white btn btn-primary" onClick={logOut}>Log Out</button>
+                </div>
             </div>
         )
     } else {
