@@ -1,3 +1,7 @@
+# Clue Companion App
+This is the front end for a companion app to assist players in the game Clue. It tracks all suggestions to allow players to make every possible inference which could be made in the game. 
+
+
 # Getting Started with Create React App
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
