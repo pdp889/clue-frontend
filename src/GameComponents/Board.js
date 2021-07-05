@@ -1,7 +1,10 @@
 import { useEffect, useState } from "react";
 import Summary from "./Summary";
 import 'bootstrap/dist/css/bootstrap.min.css';
-import {Check, X, Question } from 'react-bootstrap-icons';
+import '../clueColors.css';
+import './gameComponents.css';
+
+import {Check, X, Question, ThreeDotsVertical } from 'react-bootstrap-icons';
 
 export default function Board (props) {
     
@@ -165,7 +168,7 @@ export default function Board (props) {
     
     if (showDetails){
         return (
-            <div className="d-flex flex-row">
+            <div className="d-flex flex-row bg-clue-secondary padding-2">
                 <Summary token={props.token}/> 
                 <table className="table table-bordered">
                     <thead className="thead-dark">
@@ -181,14 +184,14 @@ export default function Board (props) {
                         {tablePrep}
                     </tbody>
                 </table>
-                <button onClick={toggleShowDetails}>Hide Details</button>
+                <button className="no-detail-button expand-close" onClick={toggleShowDetails}>Hide</button>
             </div>
         )
     } else {
         return (
-            <div className="d-flex flex-row">
+            <div className="d-flex flex-row bg-clue-secondary padding-2">
                 <Summary token={props.token}/> 
-                <button onClick={toggleShowDetails}>Show Details</button>
+                <button className="no-detail-button expand-close" onClick={toggleShowDetails}>Expand</button>
             </div>
         )
     }

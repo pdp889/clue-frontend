@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import '../clueColors.css';
 
 // this is an async function which signs up a user. It is called in the handleSubmit function which is called when a user clicks sign up.
 async function signUser(credentials) {
@@ -33,10 +34,10 @@ export default function SignUp(props) {
 
 
   return(
-    <div className="login-signup">
+    <div className="login-signup bg-clue-primary text-clue-primary w-100">
       <div className='d-flex justify-content-between'>
       <h3>Sign Up</h3>
-      <button className="btn btn-outline-link" onClick={props.toggle}>Back</button>
+      <button className="btn btn-outline-link text-clue-primary" onClick={props.toggle}>Back</button>
     </div>
     <form onSubmit={handleSubmit}>
       <div className='form-group'>

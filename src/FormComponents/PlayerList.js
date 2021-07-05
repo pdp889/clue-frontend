@@ -1,4 +1,6 @@
 import { useEffect, useState } from "react";
+import '../clueColors.css';
+
 import PlayerCard from './PlayerCard'
 
 export default function PlayerList (props) {

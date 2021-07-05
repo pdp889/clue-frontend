@@ -1,5 +1,7 @@
 import { useEffect, useState } from "react";
-import ClueForm from "./ClueForm"
+import ClueForm from "../FormComponents/ClueForm"
+import "../FormComponents/forms.css"
+import '../clueColors.css';
 
 export default function AddMove (props) {
     
@@ -153,36 +155,38 @@ export default function AddMove (props) {
 
 
     const sendData = () => {
-
-        const toSend = JSON.stringify({ playerId: player, request: request, cardshown: cardShown, all_no: allNo})
-        const requestOptions = {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json',
-            'Authorization': 'Bearer ' + props.token },
-            body: JSON.stringify({ playerId: player, request: request, cardshown: cardShown, all_no: allNo})        }
-        console.log(toSend);
-
-        fetch('https://smart-clue-backend.herokuapp.com/addMove', requestOptions)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data)
-            if (data.errors !== undefined){
-                let array = Array.from(data.errors);
-                let errorArray = [];
-                array.forEach(item => {
-                    errorArray.push(item.msg + "; ")
-                })
-                setErrors(errorArray)
-            } else {
-                alert(data.message);
-                setPlayer('');
-                setRequest([]);
-                setCardShown(-1);
-                setAllNo(false);
-                setShowCards(true);
-                setMessage('');
-            }
-        })
+        if (player==""){
+            setErrors('player not selected')
+        } else {
+            const toSend = JSON.stringify({ playerId: player, request: request, cardshown: cardShown, all_no: allNo})
+            const requestOptions = {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json',
+                'Authorization': 'Bearer ' + props.token },
+                body: JSON.stringify({ playerId: player, request: request, cardshown: cardShown, all_no: allNo})        }
+            console.log(toSend);
+    
+            fetch('https://smart-clue-backend.herokuapp.com/addMove', requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data)
+                if (data.errors !== undefined){
+                    let array = Array.from(data.errors);
+                    let errorArray = [];
+                    array.forEach(item => {
+                        errorArray.push(item.msg + "; ")
+                    })
+                    setErrors(errorArray)
+                } else {
+                    setPlayer('');
+                    setRequest([]);
+                    setCardShown(-1);
+                    setAllNo(false);
+                    setShowCards(true);
+                    setMessage('');
+                }
+            })
+        }
     }
 
 
@@ -194,7 +198,7 @@ export default function AddMove (props) {
 
     if (showCards){
        return(
-           <div>
+           <div className="card bg-clue-secondary vw-100 vh-100 padding-2">
                <h2>What was the suggestion made?</h2>
                <ClueForm arrayFromForm={clueFormResultHandler} />
            </div>
@@ -202,7 +206,7 @@ export default function AddMove (props) {
        ) 
     } else {
         return (
-            <div className="w-50">
+            <div className="w-50 bg-clue-secondary vh-100 vw-100 padding-2">
                 <div className="d-flex justify-content-between">
                     <h2>Suggestion Details</h2>
                     <button className="btn btn-outline-link" onClick={toggleShowCards}>Change cards?</button>
@@ -230,7 +234,7 @@ export default function AddMove (props) {
                     </select>
                     <input type="submit" className="btn btn-primary record-submit" value="Add Move" />
                 </form>
-                
+                {errors}
             </div>
         )
     }

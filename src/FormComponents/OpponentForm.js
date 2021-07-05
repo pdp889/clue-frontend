@@ -1,5 +1,6 @@
 import { useState } from "react";
-import './forms.css'
+import './forms.css';
+import '../clueColors.css';
 
 export default function OpponentForm (props) {
     
@@ -39,7 +40,6 @@ export default function OpponentForm (props) {
                 })
                 setErrors(errorArray)
             } else {
-                alert('player added!')
                 setName('');
                 setNumberCards(0);
                 props.refresh();
@@ -48,7 +48,7 @@ export default function OpponentForm (props) {
     }
    
     return (
-        <div className="card w-50 h-75">
+        <div className="card bg-clue-secondary">
             <div className='card-body'>
                 <h1>Add Opponent</h1>
                 <form onSubmit ={e => {onSubmitTask(e)}}>
@@ -61,7 +61,7 @@ export default function OpponentForm (props) {
                         autoComplete='off'
                         value={name}
                     />
-                    <label htmlFor='cardsNumber'>Cards Number</label>
+                    <label htmlFor='cardsNumber'>Number of Cards</label>
                     <input
                         onChange={e => setNumberCards(e.target.value)}
                         type='number'

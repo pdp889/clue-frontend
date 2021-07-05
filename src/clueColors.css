@@ -1,0 +1,41 @@
+
+.btn-primary {
+    background-color: #2b534a;
+    border-color: #F5f3ed;
+    color: #F5f3ed;
+  }
+  
+.btn-primary:hover{
+  background-color: #197b6d;
+  border-color: #F5f3ed;
+  color: #F5f3ed;
+}
+
+.btn-primary:active {
+  background-color: #197b6d;
+  border-color: #F5f3ed;
+  color: #F5f3ed;
+}
+.btn-primary:focus {
+  background-color: #197b6d;
+  border-color: #F5f3ed;
+  color: #F5f3ed;
+}
+
+.bg-clue-primary {
+  background-color: #2b534a;
+}
+
+.text-clue-primary {
+  color: #F5f3ed;
+}
+
+.bg-clue-secondary {
+  background-color: #F5f3ed;
+}
+
+.bg-clue-tertiary {
+  background-color: #dad0c4;
+}
+  
+  

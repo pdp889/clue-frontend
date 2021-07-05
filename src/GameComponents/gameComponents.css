@@ -1,0 +1,21 @@
+.expand-close {
+    font-size: medium,
+}
+
+.no-detail-button {
+    background-color: #dad0c4;
+	color: inherit;
+    border: none;
+	padding: 1%;
+	font: inherit;
+	cursor: pointer;
+	outline: inherit;
+}
+
+.clue-table-border-color{
+    border-color: #dad0c4 !important;
+}
+
+.padding-2 {
+    padding: 2%;
+}

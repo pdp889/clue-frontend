@@ -1,4 +1,5 @@
 import { useState } from "react"
+import '../clueColors.css';
 // This component will generate an array of the indexes of the selected boxes.
 
 export default function ClueForm (props) {
@@ -21,7 +22,7 @@ export default function ClueForm (props) {
     }
 
     return(
-        <div>
+        <div className="bg-clue-secondary">
             <form onSubmit ={e => {onSubmitTask(e)}}>
             <div class="form-group">
                 <h4>Suspects</h4>

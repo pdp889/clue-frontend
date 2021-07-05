@@ -1,3 +1,4 @@
+import '../clueColors.css';
 export default function PlayerCard (props) {
     
     const removePlayer = (event) => {
@@ -20,7 +21,6 @@ export default function PlayerCard (props) {
                 alert(errorArray)
             } else {
                 props.addRemove();
-                alert('success!');
             }            
             return data;
         })
@@ -28,11 +28,10 @@ export default function PlayerCard (props) {
     }
     
     return (
-        <div key={props.index *11} className='card'>
-            <p>id: {props.value[0]}</p>
-            <p>name: {props.value[1]}</p>
-            <p>number of cards: {props.value[2]}</p>
-            <button onClick={removePlayer}>removePlayer</button>
+        <div key={props.index *11} className='card player-card'>
+            <p>Name: {props.value[1]}</p>
+            <p>Number of Cards: {props.value[2]}</p>
+            <button className="btn btn-primary w-50" onClick={removePlayer}>Remove Player</button>
         </div>
     )
 }

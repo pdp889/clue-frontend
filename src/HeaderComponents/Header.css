@@ -1,0 +1,12 @@
+.padding-05 { 
+    padding: 0.5%;
+}
+
+.margin-02 {
+    margin: 0.2%;
+}
+
+.header-hover:hover {
+    color: #dad0c4;
+    cursor: pointer;
+}

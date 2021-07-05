@@ -1,6 +1,7 @@
 import { useState } from "react";
 import './forms.css'
 import ClueForm from "./ClueForm";
+import '../clueColors.css';
 
 export default function UserForm (props) {
     
@@ -58,7 +59,6 @@ export default function UserForm (props) {
                 })
                 setErrors(errorArray)
             } else {
-                alert('player added!')
                 setName('');
                 setTrackingArray([]);
                 setNumberCards(0);
@@ -72,9 +72,9 @@ export default function UserForm (props) {
    
     if (showCards){
         return (
-            <div className="card w-50 h-75">
-                <p>{message}</p>
+            <div className="card bg-clue-secondary">
                 <div className='card-body'>
+                    <h1>Add User Cards</h1>
                     <ClueForm arrayFromForm={getArrayFromForm}/>
                 </div>
                 {errors}
@@ -82,11 +82,10 @@ export default function UserForm (props) {
         )
     } else {
         return (
-            <div className="card w-50 h-75">
-                <p>{message}</p>
+            <div className="card bg-clue-secondary">
                 <button onClick={toggleShowCards}>Change cards</button>
                 <div className='card-body'>
-                    <h1>Add User</h1>
+                    <h1>Add User Information</h1>
                     <form onSubmit ={e => {onSubmitTask(e)}}>
                         <label htmlFor='name'>Name</label>
                         <input
@@ -97,7 +96,7 @@ export default function UserForm (props) {
                             autoComplete='off'
                             value={name}
                         />
-                        <label htmlFor='cardsNumber'>Cards Number</label>
+                        <label htmlFor='cardsNumber'>Number of Cards</label>
                         <input
                             onChange={e => setNumberCards(e.target.value)}
                             type='number'

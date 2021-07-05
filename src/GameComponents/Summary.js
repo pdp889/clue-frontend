@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-
+import '../clueColors.css';
+import './gameComponents.css'
 
 export default function Summary (props) {
     
@@ -115,7 +116,7 @@ export default function Summary (props) {
     }
 
     return (
-        <div className="border-end border-5">
+        <div className="border-end border-5 clue-table-border-color">
         <table className="table table-bordered">
             <thead>
                 <tr>
