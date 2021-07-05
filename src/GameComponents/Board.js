@@ -20,7 +20,6 @@ export default function Board (props) {
 
 
     const handleTablePrep = () => {
-        console.log('handeTablePrep')
         let array = [];
         if (players.length > 0){
             for (let i = 0; i<21; i++){
@@ -141,7 +140,7 @@ export default function Board (props) {
                 ]
             ]
             for (let i = 0; i<item.tracking_array.length; i++){
-                console.log()
+
                 if (item.tracking_array[i] == 0){
                     clueBreakdown[i][1] = <Question color="lightgrey"/>;
                 } else if (item.tracking_array[i] === 1){
@@ -150,8 +149,6 @@ export default function Board (props) {
                     clueBreakdown[i][1] = <X font-weight="bold" color="red"/>
                 }
             }
-            console.log(item.tracking_array)
-            console.log(clueBreakdown)
             let arrayedItem = [item._id, item.name, clueBreakdown]
             playerInfos.push(arrayedItem);
         })

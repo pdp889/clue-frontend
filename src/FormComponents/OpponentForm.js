@@ -14,21 +14,19 @@ export default function OpponentForm (props) {
 
     const onSubmitTask = (event) => {
         event.preventDefault();
-        console.log(props.token)
+
         sendData();
     }
 
     const sendData = () => {
-        console.log(props);
-        const stringified = JSON.stringify({name: name, tracking_array: trackingArray, number_cards: numberCards});
-        console.log(stringified)
+
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + props.token },
             body: JSON.stringify({ name: name, tracking_array: trackingArray, number_cards: numberCards})
         }
-        console.log(requestOptions)
+        
         fetch('https://smart-clue-backend.herokuapp.com/addPlayer', requestOptions)
         .then(response => response.json())
         .then(data => {

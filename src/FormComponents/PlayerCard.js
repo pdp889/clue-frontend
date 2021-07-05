@@ -2,7 +2,6 @@ import '../clueColors.css';
 export default function PlayerCard (props) {
     
     const removePlayer = (event) => {
-        console.log(props.value[0]);
         const requestOptions = {
             method: 'POST',
             headers: { 'Content-Type': 'application/json',

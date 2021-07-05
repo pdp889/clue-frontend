@@ -28,9 +28,7 @@ export default function Header (props) {
                 'Authorization': 'Bearer ' + props.token },
         });
         const dataReturn = await data.json();
-        console.log(dataReturn);
         if (!dataReturn.error) {
-            console.log(dataReturn.message)
             props.setGameStarted(dataReturn)
         } else {
             alert(dataReturn.error)

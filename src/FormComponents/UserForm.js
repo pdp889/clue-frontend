@@ -13,7 +13,6 @@ export default function UserForm (props) {
     const [errors, setErrors] = useState([]);
     
     const getArrayFromForm = (trueFalseArray) => {
-        console.log('form')
         let copy = [];
         for (let i = 0; i<trueFalseArray.length; i++){
             if (trueFalseArray[i] === true){
@@ -67,7 +66,6 @@ export default function UserForm (props) {
                 props.refresh();
             }
         })
-        console.log(JSON.stringify({ name: name, tracking_array: trackingArray, number_cards: numberCards}))
     }
    
     if (showCards){

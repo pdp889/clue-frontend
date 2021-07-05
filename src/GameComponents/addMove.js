@@ -164,12 +164,10 @@ export default function AddMove (props) {
                 headers: { 'Content-Type': 'application/json',
                 'Authorization': 'Bearer ' + props.token },
                 body: JSON.stringify({ playerId: player, request: request, cardshown: cardShown, all_no: allNo})        }
-            console.log(toSend);
     
             fetch('https://smart-clue-backend.herokuapp.com/addMove', requestOptions)
             .then(response => response.json())
             .then(data => {
-                console.log(data)
                 if (data.errors !== undefined){
                     let array = Array.from(data.errors);
                     let errorArray = [];
