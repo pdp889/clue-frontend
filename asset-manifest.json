@@ -1,25 +1,25 @@
 {
   "files": {
-    "main.css": "/clue-frontend/static/css/main.a013528a.chunk.css",
-    "main.js": "/clue-frontend/static/js/main.deb770a2.chunk.js",
-    "main.js.map": "/clue-frontend/static/js/main.deb770a2.chunk.js.map",
-    "runtime-main.js": "/clue-frontend/static/js/runtime-main.4d719fcf.js",
-    "runtime-main.js.map": "/clue-frontend/static/js/runtime-main.4d719fcf.js.map",
+    "main.css": "/clue-frontend/static/css/main.90117bf5.chunk.css",
+    "main.js": "/clue-frontend/static/js/main.8938e3aa.chunk.js",
+    "main.js.map": "/clue-frontend/static/js/main.8938e3aa.chunk.js.map",
+    "runtime-main.js": "/clue-frontend/static/js/runtime-main.9e078998.js",
+    "runtime-main.js.map": "/clue-frontend/static/js/runtime-main.9e078998.js.map",
     "static/css/2.0bca3e4c.chunk.css": "/clue-frontend/static/css/2.0bca3e4c.chunk.css",
-    "static/js/2.bcbeeb7d.chunk.js": "/clue-frontend/static/js/2.bcbeeb7d.chunk.js",
-    "static/js/2.bcbeeb7d.chunk.js.map": "/clue-frontend/static/js/2.bcbeeb7d.chunk.js.map",
-    "static/js/3.f21de609.chunk.js": "/clue-frontend/static/js/3.f21de609.chunk.js",
-    "static/js/3.f21de609.chunk.js.map": "/clue-frontend/static/js/3.f21de609.chunk.js.map",
+    "static/js/2.b15407eb.chunk.js": "/clue-frontend/static/js/2.b15407eb.chunk.js",
+    "static/js/2.b15407eb.chunk.js.map": "/clue-frontend/static/js/2.b15407eb.chunk.js.map",
+    "static/js/3.aa2c221d.chunk.js": "/clue-frontend/static/js/3.aa2c221d.chunk.js",
+    "static/js/3.aa2c221d.chunk.js.map": "/clue-frontend/static/js/3.aa2c221d.chunk.js.map",
     "index.html": "/clue-frontend/index.html",
     "static/css/2.0bca3e4c.chunk.css.map": "/clue-frontend/static/css/2.0bca3e4c.chunk.css.map",
-    "static/css/main.a013528a.chunk.css.map": "/clue-frontend/static/css/main.a013528a.chunk.css.map",
-    "static/js/2.bcbeeb7d.chunk.js.LICENSE.txt": "/clue-frontend/static/js/2.bcbeeb7d.chunk.js.LICENSE.txt"
+    "static/css/main.90117bf5.chunk.css.map": "/clue-frontend/static/css/main.90117bf5.chunk.css.map",
+    "static/js/2.b15407eb.chunk.js.LICENSE.txt": "/clue-frontend/static/js/2.b15407eb.chunk.js.LICENSE.txt"
   },
   "entrypoints": [
-    "static/js/runtime-main.4d719fcf.js",
+    "static/js/runtime-main.9e078998.js",
     "static/css/2.0bca3e4c.chunk.css",
-    "static/js/2.bcbeeb7d.chunk.js",
-    "static/css/main.a013528a.chunk.css",
-    "static/js/main.deb770a2.chunk.js"
+    "static/js/2.b15407eb.chunk.js",
+    "static/css/main.90117bf5.chunk.css",
+    "static/js/main.8938e3aa.chunk.js"
   ]
 }
