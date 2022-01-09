@@ -3,10 +3,58 @@
 }
 
 .margin-02 {
-    margin: 0.2%;
+    margin: 0.2% 5% 0.2% 5%;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.margin-02-right {
+    margin: 0.2% 5% 0.2% 5%;
+    text-align: right;
+    display:flex;
+    flex-direction: column;
+    justify-content: space-around;
 }
 
 .header-hover:hover {
     color: #dad0c4;
     cursor: pointer;
+}
+
+.header-hover {
+display:flex;
+flex-direction: column;
+justify-content: space-around;}
+
+.min-width-300 {
+    min-width: 350px !important;
+    justify-content: center;
+}
+
+.min-width-150{
+    min-width: 100px !important;
+}
+
+.header {
+    height: 4vh;
+}
+
+@media screen and (max-width:768px){
+    .min-width-300 {
+        min-width: 250px !important;
+    }
+}
+
+@media screen and (max-width: 500px){
+    .header {
+        height: 10vh;
+    }
+
+    .min-width-150 {
+        min-width: 50px !important;
+    }
+    .min-width-300 {
+        min-width: 150px !important;
+    }
 }

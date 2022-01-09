@@ -1,43 +1,38 @@
 import { useState } from "react";
-import './forms.css'
+import './forms.css';
 import ClueForm from "./ClueForm";
 import '../clueColors.css';
 
 export default function UserForm (props) {
     
     const [showCards, setShowCards] = useState(true);
-    const [message, setMessage] = useState('cards not loaded');
     const [name, setName] = useState('');
-    const [trackingArray, setTrackingArray] = useState([-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1,-1]);
-    const [numberCards, setNumberCards] = useState(0);
     const [errors, setErrors] = useState([]);
-    
-    const getArrayFromForm = (trueFalseArray) => {
-        let copy = [];
-        for (let i = 0; i<trueFalseArray.length; i++){
-            if (trueFalseArray[i] === true){
-                copy.push(1);
-            } else {
-                copy.push(-1);
-            }
-        }
-        setTrackingArray(copy);
+    const [userNumberCards, setUserNumberCards] = useState(0);
+
+    const allCardsObj = {};
+    props.clueCard.allCards.forEach(x => {
+        allCardsObj[x] = -1;
+    });
+    const [trackingObj, setTrackingObj] = useState(allCardsObj);
+       
+    const getArrayFromForm = (clueBoardObj) => {
+        
+        let copy = {};
+        props.clueCard.allCards.forEach(card => {
+            copy[card] = ((clueBoardObj[card]) ? 1 : -1);
+        });
+        setTrackingObj(copy);
         setShowCards(false);
-        setMessage('cards loaded');
     }
 
     const onSubmitTask = (event) => {
         event.preventDefault();
-        sendData();
-        
+        sendData(); 
     }
 
     const toggleShowCards = () => {
-        if (showCards === true){
-            setShowCards(false)
-        } else {
-            setShowCards(true)
-        }
+        setShowCards(!showCards);
     }
 
     const sendData = () => {
@@ -45,7 +40,7 @@ export default function UserForm (props) {
             method: 'POST',
             headers: { 'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + props.token },
-            body: JSON.stringify({ name: name, tracking_array: trackingArray, number_cards: numberCards})
+            body: JSON.stringify({ name: name, tracking_obj: trackingObj, is_user_player: "true", number_cards: userNumberCards})
         }
         fetch('https://smart-clue-backend.herokuapp.com/addPlayer', requestOptions)
         .then(response => response.json())
@@ -59,10 +54,8 @@ export default function UserForm (props) {
                 setErrors(errorArray)
             } else {
                 setName('');
-                setTrackingArray([]);
-                setNumberCards(0);
+                setTrackingObj({});
                 setShowCards(true);
-                setMessage('');
                 props.refresh();
             }
         })
@@ -73,7 +66,7 @@ export default function UserForm (props) {
             <div className="card bg-clue-secondary">
                 <div className='card-body'>
                     <h1>Add User Cards</h1>
-                    <ClueForm arrayFromForm={getArrayFromForm}/>
+                    <ClueForm arrayFromForm={getArrayFromForm} clueCard={props.clueCard} setUserNumberCards={setUserNumberCards}/>
                 </div>
                 {errors}
             </div>
@@ -85,25 +78,15 @@ export default function UserForm (props) {
                 <div className='card-body'>
                     <h1>Add User Information</h1>
                     <form onSubmit ={e => {onSubmitTask(e)}}>
-                        <label htmlFor='name'>Name</label>
+                        <label htmlFor='name'>Nickname (6 Characters or Less)</label>
                         <input
                             onChange={e => setName(e.target.value)}
                             type='text'
                             name='name'
                             className='form-control'
                             autoComplete='off'
+                            maxLength='6'
                             value={name}
-                        />
-                        <label htmlFor='cardsNumber'>Number of Cards</label>
-                        <input
-                            onChange={e => setNumberCards(e.target.value)}
-                            type='number'
-                            name='cardsNumber'
-                            className='form-control'
-                            autoComplete='off'
-                            value={numberCards}
-                            min='1'
-                            max='6'
                         />
                         <input type="submit" className="btn btn-primary record-submit" value="Add User" />
                     </form>

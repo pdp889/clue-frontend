@@ -3,8 +3,7 @@ import Summary from "./Summary";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../clueColors.css';
 import './gameComponents.css';
-
-import {Check, X, Question, ThreeDotsVertical } from 'react-bootstrap-icons';
+import {Check, X, Question, ThreeDotsVertical} from 'react-bootstrap-icons';
 
 export default function Board (props) {
     
@@ -22,22 +21,22 @@ export default function Board (props) {
     const handleTablePrep = () => {
         let array = [];
         if (players.length > 0){
-            for (let i = 0; i<21; i++){
+            props.clueCard.allCards.forEach(i => {
                 let smallArray = [];
                 
-                players.map((value, index) => {
+                players.forEach(player => {
                     smallArray.push (
-                            <td>{value[2][i][1]}</td>
-                    )
-                })
+                        <td>{player.clueBreakdown[i]}</td>
+                    );
+                });
                 array.push (
                     <tr>
                         {smallArray.map ((arrayItem) => {
                             return arrayItem;
                         })}
                     </tr>
-                )
-                    }
+                );
+            });
             setTablePrep(array);
         }
 
@@ -53,126 +52,40 @@ export default function Board (props) {
         const dataReturn = await data.json();
         let playerInfos = [];
         Array.from(dataReturn).forEach(item => {
-            let clueBreakdown = [
-                [
-                    'Mustard',
-                    null
-                ],
-                [
-                    'Plum',
-                    null
-                ],
-                [
-                    'Green',
-                    null
-                ],
-                [
-                    'Peacock',
-                    null
-                ],
-                [
-                    'Scarlet',
-                    null
-                ],
-                [
-                    'White',
-                    null
-                ],
-                [
-                    'Knife',
-                    null
-                ],
-                [
-                    'Candlestick',
-                    null
-                ],
-                [
-                   'Revolver',
-                    null
-                ],
-                [
-                   'Rope',
-                    null
-                ],
-                [
-                    'Lead Pipe',
-                    null
-                ],
-                [
-                    'Wrench',
-                    null
-                ],
-                [
-                    'Hall',
-                     null
-                ],
-                [
-                   'Lounge',
-                    null
-                ],
-                [
-                    'Dining Room',
-                    null
-                ],
-                [
-                    'Kitchen',
-                    null
-                ],
-                [
-                    'Ballroom',
-                    null
-                ],
-                [
-                    'Conservatory',
-                    null
-                ],
-                [
-                    'Billiard Room',
-                    null
-                ],
-                [
-                    'Library',
-                    null
-                ],
-                [
-                    'Study',
-                    null
-                ]
-            ]
-            for (let i = 0; i<item.tracking_array.length; i++){
-
-                if (item.tracking_array[i] == 0){
-                    clueBreakdown[i][1] = <Question color="lightgrey"/>;
-                } else if (item.tracking_array[i] === 1){
-                    clueBreakdown[i][1] = <Check font-weight="bold" color="darkgreen"/>
+            let clueBreakdown = {};
+            props.clueCard.allCards.forEach(i => {
+                if (item.tracking_obj[i] === 0){
+                    clueBreakdown[i] = <Question color="lightgrey"/>;
+                } else if (item.tracking_obj[i] === 1){
+                    clueBreakdown[i] = <Check font-weight="bold" color="darkgreen"/>
                 } else {
-                    clueBreakdown[i][1] = <X font-weight="bold" color="red"/>
+                    clueBreakdown[i] = <X font-weight="bold" color="red"/>
                 }
-            }
-            let arrayedItem = [item._id, item.name, clueBreakdown]
+            });
+            let arrayedItem = {
+                id: item._id, 
+                name: item.name, 
+                clueBreakdown: clueBreakdown
+            };
             playerInfos.push(arrayedItem);
         })
         setPlayers(playerInfos);
     }
 
     const toggleShowDetails = () => {
-        if (showDetails===true) {
-            setShowDetails(false)
-        } else {
-            setShowDetails(true);
-        }
+        setShowDetails(!showDetails);
     }
     
     if (showDetails){
         return (
             <div className="d-flex flex-row bg-clue-secondary padding-2">
-                <Summary token={props.token}/> 
-                <table className="table table-bordered">
+                <Summary token={props.token} clueCard={props.ClueCard}/> 
+                <table className="table table-bordered clue-table">
                     <thead className="thead-dark">
                         <tr>
                             {players.map((value, index) => {
                                 return (
-                                    <th scope="col">{value[1]}</th>
+                                    <th scope="col" className="playerNameOnTable">{value.name}</th>
                                 )
                             })}
                         </tr>
@@ -181,14 +94,14 @@ export default function Board (props) {
                         {tablePrep}
                     </tbody>
                 </table>
-                <button className="no-detail-button expand-close" onClick={toggleShowDetails}>Hide</button>
+                <button className="no-detail-button expand-close" onClick={toggleShowDetails}><ThreeDotsVertical /></button>
             </div>
         )
     } else {
         return (
             <div className="d-flex flex-row bg-clue-secondary padding-2">
-                <Summary token={props.token}/> 
-                <button className="no-detail-button expand-close" onClick={toggleShowDetails}>Expand</button>
+                <Summary token={props.token} clueCard={props.ClueCard}/> 
+                <button className="no-detail-button expand-close" onClick={toggleShowDetails}><ThreeDotsVertical /></button>
             </div>
         )
     }

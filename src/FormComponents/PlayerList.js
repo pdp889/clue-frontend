@@ -25,19 +25,29 @@ export default function PlayerList (props) {
             const dataReturn = await data.json();
             let playerInfos = [];
             Array.from(dataReturn).forEach(item => {
-                let arrayedItem = [item._id, item.name, item.number_cards]
-                playerInfos.push(arrayedItem);
+                let playerItem = {
+                    id: item._id,
+                    name: item.name,
+                    is_user_player: item.is_user_player,
+                    number_cards: item.number_cards    
+                };
+                console.log(playerItem);
+                playerInfos.push(playerItem);
             })
             setPlayers(playerInfos);
         }
 
 
-        
+        let classForDiv = 'bg-clue-secondary card ' + props.hidden;
         return (
-            <div>
-                {players.map((value, index) => {
-                    return <PlayerCard value={value} index={index} addRemove={addRemove} token={props.token}/>
-                })}
+            
+            <div className={classForDiv}>
+                <div className="card-body">
+                    <h1>Player List</h1>
+                    {players.map((value, index) => {
+                        return <PlayerCard key={index*17} value={value} index={index} addRemove={addRemove} token={props.token} userFormToFalse={props.userFormToFalse}/>
+                    })}
+                </div>
             </div>
         )
     }

@@ -2,12 +2,36 @@
     border: none;
     padding: 10%;
     width: 50%;
+    height: 60vh;
 }
 
 .login-signup{
-    padding: 10px;
+    padding: 30px;
+    width: 50% !important;
 }
 
 .login-signup-button{
     margin-top: 10px;
+}
+
+h2 {
+    font-size: 36px;
+}
+
+@media screen and (max-width:768px){
+    .main-login-section {
+        width: 70%;
+        height: 70vh;
+    }
+    .login-signup {
+        width: 70% !important;
+    }
+    
+}
+
+@media screen and (max-width:398px){
+    h2 {
+        font-size: 28px;
+    }
+    
 }

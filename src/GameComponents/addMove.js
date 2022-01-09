@@ -1,105 +1,22 @@
 import { useEffect, useState } from "react";
-import ClueForm from "../FormComponents/ClueForm"
-import "../FormComponents/forms.css"
+import ClueForm from "../FormComponents/ClueForm";
+import "../FormComponents/forms.css";
 import '../clueColors.css';
 
 export default function AddMove (props) {
     
     const [showCards, setShowCards] = useState(true);
     const [message, setMessage] = useState('cards not loaded');
-    const [allPlayers, setAllPlayers] = useState([[]]);
+    const [allPlayers, setAllPlayers] = useState([{}]);
     const [player, setPlayer] = useState('');
     const [request, setRequest] = useState([]);
-    const [cardShown, setCardShown] = useState(-1);
+    const [cardShown, setCardShown] = useState('Unknown');
     const [allNo, setAllNo] = useState(false);
     const [errors, setErrors] = useState([]);
-
-    let clueBreakdown = [
-        [
-            'Mustard',
-            null
-        ],
-        [
-            'Plum',
-            null
-        ],
-        [
-            'Green',
-            null
-        ],
-        [
-            'Peacock',
-            null
-        ],
-        [
-            'Scarlet',
-            null
-        ],
-        [
-            'White',
-            null
-        ],
-        [
-            'Knife',
-            null
-        ],
-        [
-            'Candlestick',
-            null
-        ],
-        [
-           'Revolver',
-            null
-        ],
-        [
-           'Rope',
-            null
-        ],
-        [
-            'Lead Pipe',
-            null
-        ],
-        [
-            'Wrench',
-            null
-        ],
-        [
-            'Hall',
-             null
-        ],
-        [
-           'Lounge',
-            null
-        ],
-        [
-            'Dining Room',
-            null
-        ],
-        [
-            'Kitchen',
-            null
-        ],
-        [
-            'Ballroom',
-            null
-        ],
-        [
-            'Conservatory',
-            null
-        ],
-        [
-            'Billiard Room',
-            null
-        ],
-        [
-            'Library',
-            null
-        ],
-        [
-            'Study',
-            null
-        ]
-    ]
+    const clueBreakdown = {};
+    props.clueCard.allCards.forEach(x => {
+        clueBreakdown[x] = null;
+    });
 
     useEffect(()=>{
         fetchItems();
@@ -115,9 +32,13 @@ export default function AddMove (props) {
         const dataReturn = await data.json();
         let playerInfos = [];
         Array.from(dataReturn).forEach(item => {
-            let arrayedItem = [item._id, item.name, item.number_cards]
-            playerInfos.push(arrayedItem);
-        })
+            let objItem = {
+                id: item._id,
+                name: item.name,
+                numberCards: item.number_cards
+            };
+            playerInfos.push(objItem);
+        });
         setAllPlayers(playerInfos);
     }
 
@@ -133,57 +54,59 @@ export default function AddMove (props) {
         setCardShown(event.target.value);
     }
 
-    const clueFormResultHandler = (array) => {
+    const clueFormResultHandler = (clueObj) => {
         let workingRequest = [];
-        for (let i = 0; i < array.length; i++){
-            if(array[i] === true){
-                workingRequest.push(i)
+        props.clueCard.allCards.forEach( x => {
+            if(clueObj[x]){
+                //pushing the name the of the card
+                workingRequest.push(x);
             }
-        }
+        });
         setRequest(workingRequest);
         toggleShowCards();
         setMessage('cards loaded');
     }
 
     const toggleShowCards = () => {
-        if (showCards === true){
-            setShowCards(false)
-        } else {
-            setShowCards(true)
-        }
+        setShowCards(!showCards)
     }
 
 
     const sendData = () => {
-        if (player==""){
-            setErrors('player not selected')
+        if (player===""){
+            setErrors('player not selected');
         } else {
-            const toSend = JSON.stringify({ playerId: player, request: request, cardshown: cardShown, all_no: allNo})
-            const requestOptions = {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json',
-                'Authorization': 'Bearer ' + props.token },
+            if(!(allNo && cardShown!=="Unknown")){
+                           
+                const requestOptions = {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json',
+                    'Authorization': 'Bearer ' + props.token },
                 body: JSON.stringify({ playerId: player, request: request, cardshown: cardShown, all_no: allNo})        }
-    
-            fetch('https://smart-clue-backend.herokuapp.com/addMove', requestOptions)
-            .then(response => response.json())
-            .then(data => {
-                if (data.errors !== undefined){
-                    let array = Array.from(data.errors);
-                    let errorArray = [];
-                    array.forEach(item => {
-                        errorArray.push(item.msg + "; ")
-                    })
-                    setErrors(errorArray)
-                } else {
-                    setPlayer('');
-                    setRequest([]);
-                    setCardShown(-1);
-                    setAllNo(false);
-                    setShowCards(true);
-                    setMessage('');
-                }
-            })
+                fetch('https://smart-clue-backend.herokuapp.com/addMove', requestOptions)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.errors !== undefined){
+                        let array = Array.from(data.errors);
+                        let errorArray = [];
+                        array.forEach(item => {
+                            errorArray.push(item.msg + "; ")
+                        })
+                        setErrors(errorArray)
+                    } else {
+                        setPlayer('');
+                        setRequest([]);
+                        setCardShown('Unknown');
+                        setAllNo(false);
+                        setShowCards(true);
+                        setMessage('');
+                    }
+                })
+            }
+            else {
+                alert("You selected a card value and noted that no card was shown to you. This will not be submitted.")
+                window.location.reload();
+            }
         }
     }
 
@@ -191,20 +114,19 @@ export default function AddMove (props) {
     const onSubmitTask = (event) => {
         event.preventDefault();
         sendData();
-
     }
 
     if (showCards){
        return(
-           <div className="card bg-clue-secondary vw-100 vh-100 padding-2">
+           <div className="card bg-clue-secondary vw-100 vh-96 padding-2">
                <h2>What was the suggestion made?</h2>
-               <ClueForm arrayFromForm={clueFormResultHandler} />
+               <ClueForm arrayFromForm={clueFormResultHandler} clueCard={props.clueCard}/>
            </div>
             
        ) 
     } else {
         return (
-            <div className="w-50 bg-clue-secondary vh-100 vw-100 padding-2">
+            <div className="w-50 bg-clue-secondary vh-96 vw-100 padding-2">
                 <div className="d-flex justify-content-between">
                     <h2>Suggestion Details</h2>
                     <button className="btn btn-outline-link" onClick={toggleShowCards}>Change cards?</button>
@@ -214,7 +136,7 @@ export default function AddMove (props) {
                     <select name="player" value={player} className="form-select" onChange={onSelectChange}>
                        <option></option> 
                        {allPlayers.map((value, index) => {
-                            return <option key={index} value={value[0]}>{value[1]}</option>
+                            return <option key={index} value={value.id}>{value.name}</option>
                         })}
                     </select>
                     <label htmlFor='allno'>All No?</label>
@@ -223,11 +145,11 @@ export default function AddMove (props) {
                         <option  value={false}>false</option>
                     </select>
                 
-                <label htmlFor='cardShown'>card shown</label>
+                <label htmlFor='cardShown'>Card Shown</label>
                     <select name="cardShown" className="form-select" value={cardShown} onChange={onCardShownChange}>
-                        <option value={-1}>Unknown</option>
-                        {clueBreakdown.map((value, index) => {
-                            return <option key={index} value={index}>{value[0]}</option>
+                        <option value={'Unknown'}>Unknown</option>
+                        {props.clueCard.allCards.map((value, index) => {
+                            return <option key={index} value={value}>{value}</option>
                         })}
                     </select>
                     <input type="submit" className="btn btn-primary record-submit" value="Add Move" />

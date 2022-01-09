@@ -1,7 +1,7 @@
 import { Link} from "react-router-dom";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import '../clueColors.css';
-import './Header.css'
+import './Header.css';
 
 export default function Header (props) {
     
@@ -37,29 +37,29 @@ export default function Header (props) {
 
     if (props.gameStarted){
         return(
-            <div className="d-flex justify-content-between bg-clue-primary">
-                <div className="d-flex padding-05">
-                    <Link  className="text-decoration-none text-clue-primary margin-02 header-hover" to='/addMove'>
-                        <div >Add Move</div>
+            <div className="d-flex justify-content-between bg-clue-primary header">
+                <div className="d-flex padding-05 min-width-300">
+                    <Link  className="text-decoration-none text-clue-primary margin-02 header-hover min-width-150" to='/addMove'>
+                        <div className="header-word-div" >Add Move</div>
                     </Link>
-                    <Link className="text-decoration-none text-clue-primary margin-02 header-hover" to="/">
-                        <div >Game Board</div>
+                    <Link className="text-decoration-none text-clue-primary margin-02 header-hover min-width-150" to="/">
+                        <div className="header-word-div">Game Board</div>
                     </Link>
                 </div>
-                <div className="d-flex padding-05">
-                    <div class="text-decoration-none text-clue-primary margin-02 header-hover" onClick={endGame}>End Game</div>
-                    <div className="text-decoration-none text-clue-primary margin-02 header-hover" onClick={logOut}>Log Out</div>
+                <div className="d-flex padding-05 min-width-300">
+                    <div className="text-decoration-none text-clue-primary margin-02-right header-hover min-width-150" onClick={endGame}><div className="header-word-div">End Game</div></div>
+                    <div className="text-decoration-none text-clue-primary margin-02-right header-hover min-width-150" onClick={logOut}><div className="header-word-div">Log Out</div></div>
                 </div>
             </div>
         )
     } else {
         return(
-            <div className="d-flex justify-content-between bg-clue-primary">
-                <div className="text-decoration-none text-clue-primary margin-02 header-hover" onClick={startGame}>Go to Game</div>
-                <Link className="text-decoration-none text-clue-primary margin-02 header-hover" to="/">
+            <div className="d-flex justify-content-between bg-clue-primary header">
+                <div className="text-decoration-none text-clue-primary margin-02 header-hover min-width-150" onClick={startGame}>Go to Game</div>
+                <Link className="text-decoration-none text-clue-primary margin-02 header-hover min-width-150" to="/">
                         <div >Forms</div>
                 </Link>
-                <div className="text-decoration-none text-clue-primary margin-02 header-hover" onClick={logOut}>Log Out</div>
+                <div className="text-decoration-none text-clue-primary margin-02 header-hover min-width-150" onClick={logOut}><div className="header-word-div">Log Out</div></div>
             </div>
         )
     }

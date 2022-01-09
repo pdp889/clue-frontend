@@ -19,8 +19,46 @@
     background-color: #e1d9d0;
 }
 
+h1 {
+    font-size: 32px;
+}
+
+h4 {
+    font-size: 20px;
+}
+
+.form-check label {
+    font-size: 14px;
+}
+
 .player-card {
     padding: 3%;
     align-items: center;
     margin-bottom: 3%;
+}
+
+
+@media screen and (max-width:768px) {
+    h1 {
+        font-size: 24px;
+    }
+    h4 {
+        font-size: 20px;
+    }
+    
+    .form-check label {
+        font-size: 14px;
+    }
+}
+@media screen and (max-width:475px){
+    h1 {
+        font-size: 32px;
+    }
+    .main-content {
+        display: flex;
+        flex-direction: column;
+    }
+    .hidden {
+        display:none !important;
+    }
 }

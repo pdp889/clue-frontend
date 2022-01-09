@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import './AuthControl.css'
 import '../clueColors.css';
+import {X} from 'react-bootstrap-icons';
+
 
 // This is a helper function to log in a user. It is called in the handleSubmit function when a user clicks log in
 async function loginUser(credentials) {
@@ -37,7 +39,7 @@ export default function Login(props) {
       <div className="login-signup text-clue-primary bg-clue-primary w-100">
         <div className='d-flex justify-content-between'>
         <h3>Log In</h3>
-        <button className="btn btn-outline-link text-clue-primary" onClick={props.toggle}>Back</button>
+        <button className="btn btn-outline-link text-clue-primary" onClick={props.toggle}><X/></button>
       </div>
       <form onSubmit={handleSubmit}>
         <div className='form-group'>

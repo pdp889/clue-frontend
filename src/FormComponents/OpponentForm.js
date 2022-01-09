@@ -4,9 +4,11 @@ import '../clueColors.css';
 
 export default function OpponentForm (props) {
     
-    
+    const allCardsObj = {};
+    props.clueCard.allCards.forEach(x => {
+        allCardsObj[x] = 0;
+    });
     const [name, setName] = useState('');
-    const trackingArray = [0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0];
     const [numberCards, setNumberCards] = useState(0);
     const [errors, setErrors] = useState([]);
     
@@ -24,7 +26,7 @@ export default function OpponentForm (props) {
             method: 'POST',
             headers: { 'Content-Type': 'application/json',
             'Authorization': 'Bearer ' + props.token },
-            body: JSON.stringify({ name: name, tracking_array: trackingArray, number_cards: numberCards})
+            body: JSON.stringify({ name: name, tracking_obj: allCardsObj, is_user_player:"false", number_cards: numberCards})
         }
         
         fetch('https://smart-clue-backend.herokuapp.com/addPlayer', requestOptions)
@@ -50,13 +52,14 @@ export default function OpponentForm (props) {
             <div className='card-body'>
                 <h1>Add Opponent</h1>
                 <form onSubmit ={e => {onSubmitTask(e)}}>
-                    <label htmlFor='name'>Name</label>
+                    <label htmlFor='name'>Nickname (6 Characters or Less)</label>
                     <input
                         onChange={e => setName(e.target.value)}
                         type='text'
                         name='name'
                         className='form-control'
                         autoComplete='off'
+                        maxLength="6"
                         value={name}
                     />
                     <label htmlFor='cardsNumber'>Number of Cards</label>

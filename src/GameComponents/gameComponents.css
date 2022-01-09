@@ -19,3 +19,31 @@
 .padding-2 {
     padding: 2%;
 }
+
+.clue-table {
+    margin-bottom: 0px;
+}
+
+.SearchIcon {
+    text-align: center;
+}
+
+@media  screen and (max-width:768px) {
+    th.playerNameOnTable {
+        writing-mode: vertical-rl !important;
+        text-orientation: mixed !important;
+        height: 80px;
+    }
+
+    .SearchIcon {
+        height:80px;
+    }
+}
+@media  screen and (max-width:450px) {
+    th, td {
+        font-size: 10.5px !important;
+        padding: 2px !important;
+    }
+
+     
+}

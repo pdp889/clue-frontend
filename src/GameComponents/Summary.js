@@ -1,10 +1,28 @@
 import { useState, useEffect } from "react";
 import '../clueColors.css';
-import './gameComponents.css'
+import './gameComponents.css';
+import {Search} from 'react-bootstrap-icons';
+
 
 export default function Summary (props) {
     
-    const [summary, setSummary] = useState([]);
+    const [summary, setSummary] = useState({});
+    const clueCard = {
+        suspects: ['Mustard', 'Plum', 'Green', 'Peacock', 'Scarlet', 'White'],
+        weapons: ['Knife', 'Candlestick', 'Revolver', 'Rope', 'Lead Pipe', 'Wrench'],
+        rooms:['Hall', 'Lounge', 'Dining Room', 'Kitchen', 'Ballroom', 'Conservatory', 'Billiard Room', 'Library', 'Study'],
+    };
+
+    clueCard.allCards =[].concat(clueCard.suspects, clueCard.weapons, clueCard.rooms);
+    let clueCardShort = {};
+    clueCard.allCards.forEach( x => {
+        clueCardShort[x] = x;
+    });
+    clueCardShort["Candlestick"] = "Candls.";
+    clueCardShort["Lead Pipe"] = "Ld. Pipe";
+    clueCardShort["Dining Room"] = "Din. Rm.";
+    clueCardShort["Conservatory"] = "Cons.";
+    clueCardShort["Billiard Room"] = "Bil. Rm.";
 
     useEffect(()=>{
         fetchItems();
@@ -17,126 +35,38 @@ export default function Summary (props) {
                 'Authorization': 'Bearer ' + props.token },
         });
         const dataReturn = await data.json();
-        let dataArray = Array.from(dataReturn);
-            let clueBreakdown = [
-                [
-                    'Mustard',
-                    null
-                ],
-                [
-                    'Plum',
-                    null
-                ],
-                [
-                    'Green',
-                    null
-                ],
-                [
-                    'Peacock',
-                    null
-                ],
-                [
-                    'Scarlet',
-                    null
-                ],
-                [
-                    'White',
-                    null
-                ],
-                [
-                    'Knife',
-                    null
-                ],
-                [
-                    'Candlestick',
-                    null
-                ],
-                [
-                   'Revolver',
-                    null
-                ],
-                [
-                   'Rope',
-                    null
-                ],
-                [
-                    'Lead Pipe',
-                    null
-                ],
-                [
-                    'Wrench',
-                    null
-                ],
-                [
-                    'Hall',
-                     null
-                ],
-                [
-                   'Lounge',
-                    null
-                ],
-                [
-                    'Dining Room',
-                    null
-                ],
-                [
-                    'Kitchen',
-                    null
-                ],
-                [
-                    'Ballroom',
-                    null
-                ],
-                [
-                    'Conservatory',
-                    null
-                ],
-                [
-                    'Billiard Room',
-                    null
-                ],
-                [
-                    'Library',
-                    null
-                ],
-                [
-                    'Study',
-                    null
-                ]
-            ]
-            for (let i = 0; i<dataArray.length; i++){
-                if (dataArray[i]["value"] === null){
-                    clueBreakdown[i][1] = '';
-                } else {
-                    clueBreakdown[i][1] = dataArray[i]["value"];
-                }
+        let dataArray = dataReturn;
+        const clueBreakdown = {};
+        clueCard.allCards.forEach(x => {
+            if (dataArray[x] === null){
+                clueBreakdown[x] = '';
+            } else {
+                clueBreakdown[x] = dataArray[x];
             }
-
+        });
         setSummary(clueBreakdown);
     }
 
     return (
         <div className="border-end border-5 clue-table-border-color">
-        <table className="table table-bordered">
+        <table className="table table-bordered clue-table">
             <thead>
                 <tr>
                     <th scope="col">Card</th>
-                    <th scope="col">Known?</th>
+                    <th scope="col" className="SearchIcon"><Search /></th>
                 </tr>
             </thead>
             <tbody>
-                {summary.map((obj, index) => {
+                {clueCard.allCards.map((key, index) => {
                     return (
                         <tr key={71+ index}> 
-                            <th scope="row" >{obj[0]}</th>
-                            <td>{obj[1]}</td>
+                            <th scope="row" >{clueCardShort[key]}</th>
+                            <td className="playerNameOnTable">{summary[key]}</td>
                         </tr>
                     )
                 })}
             </tbody>
         </table>
         </div>
-        
-
     )
 }
